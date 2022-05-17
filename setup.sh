@@ -73,5 +73,6 @@ sudo update-rc.d mavgateway defaults
 
 # TODO: prompt before reboot
 
+
 # Reboot
 sudo reboot
