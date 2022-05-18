@@ -41,7 +41,7 @@ sudo rfkill unblock wlan
 HOSTAPD_CONF="/etc/hostapd/hostapd.conf"
 echo "country_code=US" | sudo tee -a $HOSTAPD_CONF
 echo "interface=wlan0" | sudo tee -a $HOSTAPD_CONF
-echo "ssid=rad-bridge" | sudo tee -a $HOSTAPD_CONF
+echo "ssid=meshine-bridge" | sudo tee -a $HOSTAPD_CONF
 echo "hw_mode=g" | sudo tee -a $HOSTAPD_CONF
 echo "channel=7" | sudo tee -a $HOSTAPD_CONF
 echo "macaddr_acl=0" | sudo tee -a $HOSTAPD_CONF
