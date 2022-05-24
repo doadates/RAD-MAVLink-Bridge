@@ -20,8 +20,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables
 # Define the wireless interface IP configuration
 DHCPCD_CONF="/etc/dhcpcd.conf"
 echo "interface wlan0" | sudo tee -a $DHCPCD_CONF
-echo "    static ip_address=192.168.42.1/24" | sudo tee -a $DHCPCD_CONF
-#echo "    static ip_address=192.168.4.1/24" | sudo tee -a $DHCPCD_CONF
+#echo "    static ip_address=192.168.42.1/24" | sudo tee -a $DHCPCD_CONF
+echo "    static ip_address=192.168.4.1/24" | sudo tee -a $DHCPCD_CONF
 echo "    nohook wpa_supplicant" | sudo tee -a $DHCPCD_CONF
 
 # Create the dnsmasq config file
@@ -31,17 +31,17 @@ sudo touch $DNSMASQ_CONF
 echo "interface=wlan0" | sudo tee -a $DNSMASQ_CONF
 echo "dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h" | sudo tee -a $DNSMASQ_CONF
 echo "domain=wlan" | sudo tee -a $DNSMASQ_CONF
-echo "address=/gw.wlan/192.168.42.1" | sudo tee -a $DNSMASQ_CONF
-#echo "address=/gw.wlan/192.168.4.1" | sudo tee -a $DNSMASQ_CONF
+#echo "address=/gw.wlan/192.168.42.1" | sudo tee -a $DNSMASQ_CONF
+echo "address=/gw.wlan/192.168.4.1" | sudo tee -a $DNSMASQ_CONF
 
 # Make sure wifi is not blocked 
 sudo rfkill unblock wlan
 
 # Create the hostapd config file
 HOSTAPD_CONF="/etc/hostapd/hostapd.conf"
-echo "country_code=US" | sudo tee -a $HOSTAPD_CONF
+echo "country_code=TR" | sudo tee -a $HOSTAPD_CONF
 echo "interface=wlan0" | sudo tee -a $HOSTAPD_CONF
-echo "ssid=meshine-bridge" | sudo tee -a $HOSTAPD_CONF
+echo "ssid=ras-bridge" | sudo tee -a $HOSTAPD_CONF
 echo "hw_mode=g" | sudo tee -a $HOSTAPD_CONF
 echo "channel=7" | sudo tee -a $HOSTAPD_CONF
 echo "macaddr_acl=0" | sudo tee -a $HOSTAPD_CONF
@@ -58,7 +58,7 @@ sudo systemctl enable ssh
 sudo systemctl start ssh
 
 # Setup mavproxy to autostart on boot
-wget "https://raw.githubusercontent.com/dbaldwin/RAD-MAVLink-Bridge/main/mavgateway"
+wget "https://raw.githubusercontent.com/doadates/RAD-MAVLink-Bridge/main/mavgateway"
 sudo mv mavgateway /etc/init.d/mavgateway
 cd /etc/init.d/
 sudo chown root:root mavgateway
