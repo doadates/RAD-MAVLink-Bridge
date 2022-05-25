@@ -19,9 +19,10 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables
 
 # Define the wireless interface IP configuration
 DHCPCD_CONF="/etc/dhcpcd.conf"
-echo "interface wlan0" | sudo tee -a $DHCPCD_CONF
-#echo "    static ip_address=192.168.42.1/24" | sudo tee -a $DHCPCD_CONF
-echo "    static ip_address=192.168.4.1/24" | sudo tee -a $DHCPCD_CONF
+#echo "interface wlan0" | sudo tee -a $DHCPCD_CONF
+echo "interface wlan1" | sudo tee -a $DHCPCD_CONF
+echo "    static ip_address=192.168.1.91/24" | sudo tee -a $DHCPCD_CONF
+#echo "    static ip_address=192.168.4.1/24" | sudo tee -a $DHCPCD_CONF
 echo "    nohook wpa_supplicant" | sudo tee -a $DHCPCD_CONF
 
 # Create the dnsmasq config file
@@ -32,7 +33,8 @@ echo "interface=wlan0" | sudo tee -a $DNSMASQ_CONF
 echo "dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h" | sudo tee -a $DNSMASQ_CONF
 echo "domain=wlan" | sudo tee -a $DNSMASQ_CONF
 #echo "address=/gw.wlan/192.168.42.1" | sudo tee -a $DNSMASQ_CONF
-echo "address=/gw.wlan/192.168.4.1" | sudo tee -a $DNSMASQ_CONF
+#echo "address=/gw.wlan/192.168.4.1" | sudo tee -a $DNSMASQ_CONF
+echo "address=/gw.wlan/192.168.1.91" | sudo tee -a $DNSMASQ_CONF
 
 # Make sure wifi is not blocked 
 sudo rfkill unblock wlan
@@ -40,7 +42,8 @@ sudo rfkill unblock wlan
 # Create the hostapd config file
 HOSTAPD_CONF="/etc/hostapd/hostapd.conf"
 echo "country_code=TR" | sudo tee -a $HOSTAPD_CONF
-echo "interface=wlan0" | sudo tee -a $HOSTAPD_CONF
+echo "interface=wlan1" | sudo tee -a $HOSTAPD_CONF
+#echo "interface=wlan0" | sudo tee -a $HOSTAPD_CONF
 echo "ssid=ras-bridge" | sudo tee -a $HOSTAPD_CONF
 echo "hw_mode=g" | sudo tee -a $HOSTAPD_CONF
 echo "channel=7" | sudo tee -a $HOSTAPD_CONF
